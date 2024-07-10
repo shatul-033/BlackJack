@@ -19,13 +19,13 @@ public class BlackJack {
         }
 
         public int getValue() {
-            if ("AJQK".contains(value)) { //A J Q K
+            if ("AJQK".contains(value)) { 
                 if (value.equals("A")) {
                     return 11;
                 }
                 return 10;
             }
-            return Integer.parseInt(value); //2-10
+            return Integer.parseInt(value); 
         }
 
         public boolean isAce() {
@@ -38,24 +38,24 @@ public class BlackJack {
     }
 
     ArrayList<Card> deck;
-    Random random = new Random(); //shuffle deck
+    Random random = new Random(); 
 
-    //dealer
+    
     Card hiddenCard;
     ArrayList<Card> dealerHand;
     int dealerSum;
     int dealerAceCount;
 
-    //player
+    
     ArrayList<Card> playerHand;
     int playerSum;
     int playerAceCount;
 
-    //window
+    
     int boardWidth = 600;
     int boardHeight = boardWidth;
 
-    int cardWidth = 110; //ratio should 1/1.4
+    int cardWidth = 110; 
     int cardHeight = 154;
 
     JFrame frame = new JFrame("Black Jack");
@@ -65,21 +65,21 @@ public class BlackJack {
             super.paintComponent(g);
             
             try {
-                //draw hidden card
+               
                 Image hiddenCardImg = new ImageIcon(getClass().getResource("./Card/BACK.png")).getImage();
                 if (!stayButton.isEnabled()) {
                     hiddenCardImg = new ImageIcon(getClass().getResource(hiddenCard.getImagePath())).getImage();
                 }
                 g.drawImage(hiddenCardImg, 20, 20, cardWidth, cardHeight, null);
 
-                //draw dealer's hand
+               
                 for (int i = 0; i < dealerHand.size(); i++) {
                     Card card = dealerHand.get(i);
                     Image cardImg = new ImageIcon(getClass().getResource(card.getImagePath())).getImage();
                     g.drawImage(cardImg, cardWidth + 25 + (cardWidth + 5) * i, 20, cardWidth, cardHeight, null);
                 }
 
-                //draw player's hand
+                
                 for (int i = 0; i < playerHand.size(); i++) {
                     Card card = playerHand.get(i);
                     Image cardImg = new ImageIcon(getClass().getResource(card.getImagePath())).getImage();
@@ -99,7 +99,7 @@ public class BlackJack {
                     } else if (dealerSum > 21) {
                         message = "YOU WIN IN  GAME!";
                     }
-                    //both you and dealer <= 21
+                   
                     else if (playerSum == dealerSum) {
                         message = "Tie!";
                     } else if (playerSum > dealerSum) {
@@ -132,14 +132,14 @@ public class BlackJack {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         gamePanel.setLayout(new BorderLayout());
-        gamePanel.setBackground(new Color(139, 137, 137)); // Dark green *background*
+        gamePanel.setBackground(new Color(139, 137, 137)); 
         frame.add(gamePanel);
 
         hitButton.setFocusable(false);
         buttonPanel.add(hitButton);
         stayButton.setFocusable(false);
         buttonPanel.add(stayButton);
-        buttonPanel.setBackground(new Color(64, 64, 64)); // Dark gray *background*
+        buttonPanel.setBackground(new Color(64, 64, 64)); 
         frame.add(buttonPanel, BorderLayout.SOUTH);
         
         hitButton.addActionListener(new ActionListener() {
@@ -174,16 +174,15 @@ public class BlackJack {
     }
 
     public void startGame() {
-        //deck
+       
         buildDeck();
         shuffleDeck();
 
-        //dealer
         dealerHand = new ArrayList<Card>();
         dealerSum = 0;
         dealerAceCount = 0;
 
-        hiddenCard = deck.remove(deck.size() - 1); //remove card at last index
+        hiddenCard = deck.remove(deck.size() - 1); 
         dealerSum += hiddenCard.getValue();
         dealerAceCount += hiddenCard.isAce() ? 1 : 0;
 
@@ -198,7 +197,6 @@ public class BlackJack {
         System.out.println(dealerSum);
         System.out.println(dealerAceCount);
 
-        //player
         playerHand = new ArrayList<Card>();
         playerSum = 0;
         playerAceCount = 0;
